@@ -7,6 +7,8 @@ const OFFSET_AMOUNT = 30
 var spot_type = CardSpotTypes.BLANK
 
 var _cards: Array[CM.CardRef] = []
+var card_count: int:
+	get: return _cards.size()
 
 @onready var marker: Sprite2D = get_node("CardBase/CardFace")
 

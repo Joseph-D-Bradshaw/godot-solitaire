@@ -7,6 +7,9 @@ const CARD_SPACE = Vector2(CARD_WIDTH, CARD_HEIGHT)
 static func get_card_face_position(card_name: String) -> Vector2:
 	return CARD_DATA["FACE"][card_name]["position"]
 
+static func get_card_base_position(card_name: String) -> Vector2:
+	return CARD_DATA["BASE"][card_name]["position"]
+
 const CARD_DATA := {
 	"BASE": {
 		"FACE_DOWN_RED": {

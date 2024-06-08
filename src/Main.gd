@@ -10,19 +10,21 @@ func get_card_region(face_or_base: String, asset_name: String):
 	var pos: Vector2 = Types.CARD_DATA[face_or_base][asset_name]["position"]
 	return pos + Vector2(Types.CARD_WIDTH, Types.CARD_HEIGHT)
 
-func set_and_move_card(card_ref: CM.CardRef, pos: Vector2) -> void:
+func set_and_move_card(card_ref: CM.CardRef, pos: Vector2, is_face_forward: bool) -> void:
 	card_ref.head_node.translate(pos)
 	var atlas_pos = Types.get_card_face_position(card_ref.card.card_name)
 	Utils.set_card_face(card_ref.head_node, atlas_pos)
+	Utils.set_card_face_hidden(card_ref.head_node, not is_face_forward)
 	add_child(card_ref.head_node)
 
 func deal_cards(deck: Deck):
 	for row in CardManager.DEAL_MAP:
-		for i in row:
+		for column_i in row:
 			var card: Card = deck.take()
 			var card_ref = CM.make_card_instance(card)
-			var card_spawn_pos = CM.columns[i].add_card(card_ref)
-			set_and_move_card(card_ref, card_spawn_pos)
+			var card_spawn_pos = CM.columns[column_i].add_card(card_ref)
+			var is_face_forward = column_i == row[0]
+			set_and_move_card(card_ref, card_spawn_pos, is_face_forward)
 			game_deck.append(card_ref)
 	
 	for i in range(7):
