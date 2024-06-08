@@ -2,8 +2,18 @@ class_name Main extends Node2D
 
 @onready var deal_button: Button = get_node("DealButton")
 @onready var columns_container: Node2D = get_node("Columns")
+@onready var deck_spot: CardSpotController = get_node("DeckSpot")
+@onready var dealt_spot = get_node("DealtSpot") as CardSpotController
+@onready var collected_hearts_spot = get_node("HeartsSpot") as CardSpotController
+@onready var collected_diamonds_spot = get_node("DiamondsSpot") as CardSpotController
+@onready var collected_spades_spot = get_node("SpadesSpot") as CardSpotController
+@onready var collected_clubs_spot = get_node("ClubsSpot") as CardSpotController
 
 var game_deck: Array[CM.CardRef] = []
+var dealer_deck: Array[CM.CardRef] = []
+
+func _ready():
+	grab_static_nodes_and_assign_to_card_manager()
 
 func get_card_region(face_or_base: String, asset_name: String):
 	assert(face_or_base == "FACE" or face_or_base == "BASE")
@@ -26,11 +36,30 @@ func deal_cards(deck: Deck):
 			var is_face_forward = column_i == row[0]
 			set_and_move_card(card_ref, card_spawn_pos, is_face_forward)
 			game_deck.append(card_ref)
-	
-	for i in range(7):
-		print("Col {i}: {column}".format({"i": i+1, "column": CM.columns[i]}))
 
-func _ready():
+func dump_to_dealers_pile(deck: Deck):
+	for i in range(deck.length):
+		var card: Card = deck.take()
+		var card_ref = CM.make_card_instance(card)
+		var _deck_spot = CM.deck_spot as CardSpotController
+		var card_spawn_pos = _deck_spot.add_card(card_ref)
+		set_and_move_card(card_ref, card_spawn_pos, false)
+		dealer_deck.append(card_ref)
+	
+func grab_static_nodes_and_assign_to_card_manager():
+	assert(deck_spot is CardSpotController)
+	assert(dealt_spot is CardSpotController)
+	assert(collected_hearts_spot is CardSpotController)
+	assert(collected_diamonds_spot is CardSpotController)
+	assert(collected_spades_spot is CardSpotController)
+	assert(collected_clubs_spot is CardSpotController)
+	CM.deck_spot = deck_spot
+	CM.dealt_spot = dealt_spot
+	CM.collected_hearts_spot = collected_hearts_spot
+	CM.collected_diamonds_spot = collected_diamonds_spot
+	CM.collected_spades_spot = collected_spades_spot
+	CM.collected_clubs_spot = collected_clubs_spot
+	
 	var columns_to_check = columns_container.get_children()
 	for col in columns_to_check:
 		if col is CardSpotController:
@@ -41,17 +70,22 @@ func _on_deal_button_pressed() -> void:
 	var deck := Deck.new()
 	deck.shuffle()
 	deal_cards(deck)
+	dump_to_dealers_pile(deck)
 	_connect_signals_on_cards()
 
 func _connect_signals_on_cards():
 	for card in game_deck:
-		card.head_node.grabbed.connect(_on_card_grabbed)
-		card.head_node.dropped.connect(_on_card_dropped)
+		card.head_node.grabbed.connect(_on_card_grabbed.bind(card))
+		card.head_node.dropped.connect(_on_card_dropped.bind(card))
+	for card in dealer_deck:
+		print("connecting card")
+		card.head_node.grabbed.connect(_on_card_grabbed.bind(card))
+		card.head_node.dropped.connect(_on_card_dropped.bind(card))
 
-func _on_card_grabbed():
-	print("Card grabbed")
+func _on_card_grabbed(card: CM.CardRef):
+	print("Card grabbed: ", card)
 
-func _on_card_dropped():
-	print("Card dropped")
+func _on_card_dropped(card: CM.CardRef):
+	print("Card dropped: ", card)
 
 

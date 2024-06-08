@@ -15,7 +15,14 @@ const DEAL_MAP = [
 	[6]
 ]
 
+# These are initialised by main but held by the CardManager (here)
 var columns: Array[CardSpotController] = []
+var deck_spot: CardSpotController
+var dealt_spot: CardSpotController
+var collected_hearts_spot: CardSpotController
+var collected_diamonds_spot: CardSpotController
+var collected_spades_spot: CardSpotController
+var collected_clubs_spot: CardSpotController
 
 class CardRef:
 	var card: Card
