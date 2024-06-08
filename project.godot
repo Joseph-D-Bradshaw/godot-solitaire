@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="cards"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://images/icon.svg"
+
+[autoload]
+
+CM="*res://src/Singletons/CardManager.gd"
+G="*res://src/Singletons/globals.gd"
 
 [dotnet]
 

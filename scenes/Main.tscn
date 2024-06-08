@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://oti75qj3qokt"]
 
-[ext_resource type="Script" path="res://Main.gd" id="1_tgl0q"]
-[ext_resource type="PackedScene" uid="uid://cf3daffrgcbxt" path="res://CardSpot.tscn" id="2_dd6fl"]
+[ext_resource type="Script" path="res://src/Main.gd" id="1_jf6bl"]
+[ext_resource type="PackedScene" uid="uid://cf3daffrgcbxt" path="res://scenes/CardSpot.tscn" id="2_ac6gq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bb3f"]
 resource_local_to_scene = true
@@ -50,28 +50,27 @@ shadow_offset = Vector2(1, 2)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b86f4"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_tgl0q")
-DEAL_SPEED = 0.1
+script = ExtResource("1_jf6bl")
 
-[node name="DeckSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="DeckSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(31, 8)
 
-[node name="DealtSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="DealtSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(109, 8)
 
-[node name="SpadesSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="SpadesSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(842, 8)
 spot_type = 3
 
-[node name="HeartsSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="HeartsSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(916, 8)
 spot_type = 1
 
-[node name="ClubsSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="ClubsSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(990, 8)
 spot_type = 4
 
-[node name="DiamondsSpot" parent="." instance=ExtResource("2_dd6fl")]
+[node name="DiamondsSpot" parent="." instance=ExtResource("2_ac6gq")]
 position = Vector2(1063, 8)
 spot_type = 2
 
@@ -89,25 +88,25 @@ text = "Deal"
 
 [node name="Columns" type="Node2D" parent="."]
 
-[node name="1" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="1" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(64, 168)
 
-[node name="2" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="2" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(192, 168)
 
-[node name="3" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="3" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(320, 168)
 
-[node name="4" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="4" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(448, 168)
 
-[node name="5" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="5" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(576, 168)
 
-[node name="6" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="6" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(704, 168)
 
-[node name="7" parent="Columns" instance=ExtResource("2_dd6fl")]
+[node name="7" parent="Columns" instance=ExtResource("2_ac6gq")]
 position = Vector2(832, 168)
 
 [connection signal="pressed" from="DealButton" to="." method="_on_deal_button_pressed"]
