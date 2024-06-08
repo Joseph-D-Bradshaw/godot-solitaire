@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cybgb2uyh0uu7"]
+
+[ext_resource type="Texture2D" uid="uid://bwerwnu06r6bl" path="res://images/card-faces.png" id="1_2kjbb"]
+
+[resource]
+resource_local_to_scene = true
+atlas = ExtResource("1_2kjbb")
+region = Rect2(852, 0, 71, 95)

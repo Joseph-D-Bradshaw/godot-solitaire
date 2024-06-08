@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf3daffrgcbxt"]
+
+[ext_resource type="Texture2D" uid="uid://boau7sshwq1ji" path="res://resources/card-back-and-deco.tres" id="1_g2b07"]
+[ext_resource type="Script" path="res://CardSpotController.gd" id="1_tybdk"]
+[ext_resource type="Texture2D" uid="uid://cybgb2uyh0uu7" path="res://resources/card-faces.tres" id="2_sk07p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36yfs"]
+size = Vector2(70, 94)
+
+[node name="CardNode" type="Node2D"]
+script = ExtResource("1_tybdk")
+
+[node name="CardBase" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0, 0.152941)
+position = Vector2(35.5, 47.5)
+texture = ExtResource("1_g2b07")
+
+[node name="CardFace" type="Sprite2D" parent="CardBase"]
+texture = ExtResource("2_sk07p")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+position = Vector2(35, 47)
+shape = SubResource("RectangleShape2D_36yfs")
